@@ -6,8 +6,7 @@ import { saveToken } from '@/store/actions/userAction';
 const RouterFn = () => {
   let token: any = 123;
   return (
-    // basename="/service-app/"
-    <BrowserRouter basename="/dist/">
+    <BrowserRouter basename="/">
       <div className="app-wrap">
         <Switch>
           {routes.map((item) => {

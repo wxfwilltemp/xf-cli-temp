@@ -12,8 +12,6 @@ export default (state = initState, action: any) => {
         token: action.token,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };

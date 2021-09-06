@@ -4,7 +4,9 @@ const HtmlWebapckPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const notifier = require('node-notifier');
+
 const rootDir = process.cwd();
+const PORT = 1024;
 
 module.exports = {
   mode: 'development',
@@ -16,19 +18,21 @@ module.exports = {
     // contentBase: path.join(__dirname, "./public"), // 静态资源的跟目录，即不受webpack控制的资源文件，放这里
     hot: true,
     open: true,
-    port: 1024,
+    port: PORT,
     // historyApiFallback: true,
     historyApiFallback: {
-      rewrites: [
-          { from: /.*/, to: path.posix.join('/', 'index.html') },
-      ],
+      rewrites: [{ from: /.*/, to: path.posix.join('/', 'index.html') }],
     },
     proxy: {
-      '/api/*': {
-        target: 'http://172.16.121.137:8030/',
+      '/api': {
+        target: 'http://172.16.121.19:8873',
         changeOrigin: true,
-        secure: true,
-        pathRewrite: {'^/api': ''}
+        pathRewrite: { '^/api': '' },
+      },
+      '/net': {
+        target: 'https://upiptest.hcfdev.cn/kwy',
+        changeOrigin: true,
+        pathRewrite: { '^/net': '/net' },
       },
     },
   },
@@ -37,29 +41,30 @@ module.exports = {
       {
         test: /\.css$/,
         // 采用css modules的解析方式时，排除对node_modules文件处理
-        exclude: [/node_modules/],
+        // exclude: [/node_modules/],
         use: [
           'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              // importLoaders: 1,
-              modules: {
-                mode: 'local',
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
-            },
-          },
+          'css-loader',
+          // {
+          //   loader: 'css-loader',
+          //   options: {
+          //     // importLoaders: 1,
+          //     modules: {
+          //       mode: 'local',
+          //       localIdentName: '[name]__[local]__[hash:base64:5]',
+          //     },
+          //   },
+          // },
           'postcss-loader',
         ],
       },
-      // 解决使用css modules时antd样式不生效
-      {
-        test: /\.css$/,
-        // 排除业务模块，其他模块都不采用css modules方式解析
-        exclude: [/src/],
-        use: ['style-loader', { loader: 'css-loader', options: { importLoaders: 1 } }],
-      },
+      // // 解决使用css modules时antd样式不生效
+      // {
+      //   test: /\.css$/,
+      //   // 排除业务模块，其他模块都不采用css modules方式解析
+      //   exclude: [/src/],
+      //   use: ['style-loader', { loader: 'css-loader', options: { importLoaders: 1 } }],
+      // },
       {
         test: /\.less$/,
         use: [
@@ -75,6 +80,7 @@ module.exports = {
             },
           },
           'postcss-loader',
+          // 'less-loader',
           { loader: 'less-loader', options: { lessOptions: { javascriptEnabled: true } } },
         ],
       },
@@ -84,14 +90,18 @@ module.exports = {
     // 添加进度条
     new WebpackBar({ profile: true }),
     new HtmlWebapckPlugin({
-      title: 'w5-tmp',
+      title: '广州检察互联网',
       template: './public/index.html',
+      cdn: {
+        css: [],
+        js: [],
+      },
     }),
     // 配置打包的友好提示
     new FriendlyErrorsPlugin({
       // 成功的时候输出
       compilationSuccessInfo: {
-        messages: [`Your application is running here: http://localhost:1024`],
+        messages: [`Your application is running here: http://localhost:${PORT}`],
       },
       // 是否每次都清空控制台
       clearConsole: true,
@@ -107,6 +117,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.BASE_URL': JSON.stringify('/'),
-    })
+      'process.env.API_URI': JSON.stringify('/'),
+    }),
   ],
 };

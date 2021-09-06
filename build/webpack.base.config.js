@@ -1,18 +1,28 @@
 const path = require('path');
-// const webpack = require('webpack');
-// const ESLintPlugin = require('eslint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const rootDir = process.cwd();
+
+const rootDir = process.cwd(); // 当前node命令执行时所在的文件夹目录 __dirname是指被执行js文件所在目录的绝对路径
 
 module.exports = {
-  entry: './src/main.tsx',
+  entry: {
+    index: './src/main.tsx',
+  },
   output: {
-    filename: 'app.[contenthash].js',
+    filename: 'js/entry_[name]_[contenthash:8].js', // 是入口文件entry打包时，对应输出文件名配置
+    chunkFilename: 'js/[name]_[contenthash:8].js', // 非入口(non-entry) chunk 文件的名称
     path: path.resolve(process.cwd(), 'dist'),
   },
   resolve: {
+    // fallback: {
+    //   http: require.resolve("stream-http"),
+    //   stream: require.resolve('stream-browserify'),
+    //   https: require.resolve("https-browserify"),
+    //   util: require.resolve('util/'),
+    //    assert: require.resolve('assert/'),
+    // },
     alias: {
       '@': path.resolve('src'),
+      // '@ant-design/icons/lib/dist$': path.resolve(rootDir,'src/utils/antdIcon.tsx')
     },
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
@@ -30,8 +40,9 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|jpg|svg|gif)$/,
+        test: /\.(png|jpg|svg|gif|webp)$/,
         type: 'asset',
+        include: path.resolve(__dirname, '../src'),
         generator: {
           filename: 'assets/[hash:8].[name][ext]',
         },
@@ -43,10 +54,14 @@ module.exports = {
       },
       {
         test: /\.(ttf|svg|eot|woff|woff2)$/,
-        type: 'assets/resource',
+        type: 'asset/resource',
         generator: {
           filename: 'assets/[hash:8].[name][ext]',
         },
+      },
+      {
+        test: /\.txt$/,
+        type: 'asset/source',
       },
     ],
   },

@@ -1,19 +1,15 @@
-import { withRouter } from 'react-router-dom';
-import { Button } from 'antd';
+import styles from './login.less';
+import HelloSvg from '@/assets/img/hello.svg';
 
-const Login = (props: any) => {
-  let { history } = props;
-  const handleTest = () => {
-    history.push('/map/test');
-  };
+const Login = () => {
   return (
-    <div>
-      <p>登录页面</p>
-      <Button type="primary" onClick={handleTest}>
-        测试页面
-      </Button>
+    <div className={styles.login}>
+      <div className="inner-content">
+        <p>基于 webpack5 + react + redux + typescript + axios 简易脚手架</p>
+        <img src={HelloSvg} alt="hello" className="welcome" />
+      </div>
     </div>
   );
 };
 
-export default withRouter(Login);
+export default Login;

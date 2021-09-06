@@ -3,8 +3,12 @@ declare module '*.png' {
   export default content;
 }
 declare module '*.less';
-// declare module 'umi';
-// declare module '@ant-design/*';
+declare module '*.svg';
+declare module 'antd-mobile/*';
+declare module 'react-pdf/*';
+declare module 'react-read-pdf';
+declare module 'pdfh5';
+declare module 'react-router-config';
 
 // google analytics interface
 // type GAFieldsObject = {
@@ -38,7 +42,7 @@ declare let ga: () => void;
 declare interface Window {
   wangEditor: any;
   Print: any;
-  request: any;
+  http: any;
 }
 // declare interface React {
 //   request?: any;

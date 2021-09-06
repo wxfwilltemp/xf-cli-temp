@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
 /dist
-/cluePushWeb
+/service-app
+/service-online
 /logs
 temp_cache
 
