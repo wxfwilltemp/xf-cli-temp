@@ -1,3 +1,10 @@
+/*
+ * @Author: will
+ * @Date: 2021-07-28 12:07:41
+ * @LastEditTime: 2021-11-01 15:23:50
+ * @LastEditors: will
+ * @Description:
+ */
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -8,7 +15,7 @@ module.exports = {
     index: './src/main.tsx',
   },
   output: {
-    filename: 'js/entry_[name]_[contenthash:8].js', // 是入口文件entry打包时，对应输出文件名配置
+    filename: 'js/[name]_[contenthash:8].js', // 是入口文件entry打包时，对应输出文件名配置
     chunkFilename: 'js/[name]_[contenthash:8].js', // 非入口(non-entry) chunk 文件的名称
     path: path.resolve(process.cwd(), 'dist'),
   },

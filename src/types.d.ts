@@ -1,3 +1,10 @@
+/*
+ * @Author: will
+ * @Date: 2021-07-29 15:56:47
+ * @LastEditTime: 2021-11-01 15:18:22
+ * @LastEditors: will
+ * @Description:
+ */
 declare module '*.png' {
   const content: any;
   export default content;
@@ -9,6 +16,7 @@ declare module 'react-pdf/*';
 declare module 'react-read-pdf';
 declare module 'pdfh5';
 declare module 'react-router-config';
+declare module 'xf-tools';
 
 // google analytics interface
 // type GAFieldsObject = {

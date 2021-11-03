@@ -9268,6 +9268,11 @@ x-is-string@^0.1.0:
   resolved "https://registry.npm.taobao.org/x-is-string/download/x-is-string-0.1.0.tgz#474b50865af3a49a9c4657f05acd145458f77d82"
   integrity sha1-R0tQhlrzpJqcRlfwWs0UVFj3fYI=
 
+xf-tools@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.npmmirror.com/xf-tools/download/xf-tools-1.0.15.tgz#cc4c41452cb593ed014905ddeea8ceb537a27675"
+  integrity sha1-zExBRSy1k+0BSQXd7qjOtTeidnU=
+
 "xtend@>=4.0.0 <4.1.0-0", xtend@^4.0.0, xtend@^4.0.1:
   version "4.0.2"
   resolved "https://registry.npm.taobao.org/xtend/download/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"

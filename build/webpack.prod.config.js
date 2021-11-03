@@ -11,7 +11,7 @@ module.exports = {
   mode: 'production',
   output: {
     clean: true, // 清除打包产物
-    publicPath: '/kwy/service-online/',
+    publicPath: '/dist/', // /kwy/service-online/
     // libraryTarget: 'umd'
     // chunkFilename: 'js/[name].js'
   },
@@ -76,9 +76,12 @@ module.exports = {
     ],
   },
   optimization: {
-    usedExports: true,
+    usedExports: true, // 表示输出结果中只导出那些在外部使用了的成员
     // 开启代码压缩
     minimize: true,
+    sideEffects: true, // 开启副作用标识
+    // concatenateModules: true, // 尽可能将所有模块合并输出到一个函数
+    providedExports: false,
     minimizer: [
       new TerserWebpackPlugin({
         extractComments: false, // 不将注释提取到单独的文件中 即不生成 LICENSE.txt 文件
@@ -163,8 +166,8 @@ module.exports = {
     }),
     // 定义全局变量
     new webpack.DefinePlugin({
-      'process.env.BASE_URL': JSON.stringify('/'),
-      'process.env.API_URI': JSON.stringify('https://upiptest.hcfdev.cn/kwy'),
+      'process.env.BASE_URL': JSON.stringify('/dist/'),
+      'process.env.API_URI': JSON.stringify('/'),
     }),
     // 分析打包大小
     new BundleAnalyzerPplugin(),
